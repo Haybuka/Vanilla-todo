@@ -48,13 +48,11 @@ const appendTodo = () => {
   // hookup checkbox strike through functionality
   listItems.querySelectorAll("input[type='checkbox']").forEach((item) => {
     item.addEventListener("click", function () {
-      console.dir(this.nextElementSibling);
       if (!this.nextElementSibling.className.includes("checked")) {
         this.nextElementSibling.classList.add("checked");
       } else {
         this.nextElementSibling.classList.remove("checked");
       }
-      // console.dir(this.nextElementSibling.classList.add('checked'));
     });
   });
 
