@@ -2,7 +2,7 @@ const listItems = document.querySelector(".todo-items");
 const form = document.querySelector("form");
 
 let todoItemsArray = [];
-localStorage.setItem("todos", JSON.stringify(todoItemsArray));
+// localStorage.setItem("todos", JSON.stringify(todoItemsArray));
 form.addEventListener("submit", function (event) {
   event.preventDefault();
   let value = this[0].value;
@@ -12,7 +12,7 @@ form.addEventListener("submit", function (event) {
     isComplete: false,
   });
   localStorage.setItem("todos", JSON.stringify(todoItemsArray));
-appendTodo()
+  appendTodo();
 });
 
 const createElements = (item) => {
@@ -30,11 +30,14 @@ const createElements = (item) => {
 
   listItem.setAttribute("class", "todo-item");
   listItem.append(textContainer, button);
-  listItems.append(listItem);
+  listItems.prepend(listItem);
 };
 
 const appendTodo = () => {
-    listItems.removeChild(listItems.querySelector(".todo-item"))
+  console.dir(listItems);
+  if (listItems.childElementCount > 0) {
+    listItems?.removeChild(listItems.querySelector(".todo-item"));
+  }
   JSON.parse(localStorage.getItem("todos"))?.forEach((item) => {
     console.log("item called");
     const createdelement = createElements(item);
@@ -42,3 +45,5 @@ const appendTodo = () => {
 };
 
 // console.log(todoItemsArray);
+
+window.addEventListener('load',appendTodo())
