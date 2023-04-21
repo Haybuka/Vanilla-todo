@@ -61,3 +61,12 @@ margin: 0 10px;
 .checked{
   text-decoration: line-through;
 }
+
+@media screen and (max-width:500px){
+  main{
+    width: auto;
+  }
+  body{
+    padding: 10px;
+  }
+}
