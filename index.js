@@ -40,10 +40,12 @@ const appendTodo = () => {
   if (listItems.childElementCount > 0) {
     listItems?.removeChild(listItems.querySelector(".todo-item"));
   }
-  JSON.parse(localStorage.getItem("todos"))?.forEach((item) => {
+  let parsedJson = JSON.parse(localStorage.getItem("todos"));
+  parsedJson.forEach((item) => {
     const createdelement = createElements(item);
   });
 
+  // hookup checkbox strike through functionality
   listItems.querySelectorAll("input[type='checkbox']").forEach((item) => {
     item.addEventListener("click", function () {
       console.dir(this.nextElementSibling);
@@ -53,6 +55,19 @@ const appendTodo = () => {
         this.nextElementSibling.classList.remove("checked");
       }
       // console.dir(this.nextElementSibling.classList.add('checked'));
+    });
+  });
+
+
+  // hook up delete functionality
+  listItems.querySelectorAll("button").forEach((item) => {
+    item.addEventListener("click", function () {
+      const elementId = this.parentElement.id;
+      const filteredArray = parsedJson.filter(
+        (parsed) => parsed.id !== elementId
+      );
+      localStorage.setItem("todos", JSON.stringify(filteredArray));
+      window.location.reload();
     });
   });
 };
